@@ -308,12 +308,23 @@ function loadQuestion() {
     answered = false; // ✅ Reset answered state
     document.getElementById("next-button").disabled = false; // ✅ Enable "Next" button immediately
 
-    tickSound.pause();
-    tickSound.currentTime = 0;
+    //tickSound.pause();
+    
     tickSound.play();
+    if (tickSound.paused) {
+    tickSound.play();
+}
+    tickSound.currentTime = 0;
+
 
     timeLeft = 20;
-    document.getElementById("result").innerHTML = `⏳ Time Left: <b>${timeLeft}</b> seconds`;
+    const resultElement = document.getElementById('result');
+if (resultElement) {
+    resultElement.innerHTML = "Some content";
+} else {
+    console.error('Element with ID "result" not found');
+}
+resultElement.innerHTML = `⏳ Time Left: <b>${timeLeft}</b> seconds`;
 
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
