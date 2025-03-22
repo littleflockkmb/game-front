@@ -457,20 +457,23 @@ function goToHomePage() {
 
 
 
-      function saveScore(username, score) {
-    fetch('https://game-backend-zt1j.onrender.com/gen1.html/save-score', {
+    function saveScore() {
+    const username = "exampleUser"; // Replace with dynamic username from your game logic
+    const score = 42; // Replace with dynamic score from your game logic
+
+    fetch('https://game-backend-zt1j.onrender.com/save-score', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, score, game: "game1" })
+        body: JSON.stringify({ username, score })
     })
     .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
+    .then(data => console.log('Score saved:', data))
+    .catch(error => console.error('Error saving score:', error));
 }
 
 
 function loadLeaderboard() {
-    fetch('https://game-backend-zt1j.onrender.com/gen1.html/leaderboard?game=game1')
+    fetch('https://game-backend-zt1j.onrender.com/leaderboard')
         .then(response => response.json())
         .then(data => {
             const leaderboardBody = document.getElementById('leaderboard-body');
@@ -480,8 +483,9 @@ function loadLeaderboard() {
                 leaderboardBody.innerHTML += row;
             });
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Error loading leaderboard:', error));
 }
+
 
 
         window.onload = loadLeaderboard;    
