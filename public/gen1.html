@@ -458,18 +458,21 @@ function goToHomePage() {
 
 
     function saveScore() {
-    const username = "exampleUser"; // Replace with dynamic username from your game logic
-    const score = 42; // Replace with dynamic score from your game logic
-
     fetch('https://game-backend-zt1j.onrender.com/save-score', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, score })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => console.log('Score saved:', data))
     .catch(error => console.error('Error saving score:', error));
 }
+
 
 
 function loadLeaderboard() {
